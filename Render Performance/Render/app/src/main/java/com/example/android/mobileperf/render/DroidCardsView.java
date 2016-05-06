@@ -92,12 +92,38 @@ class DroidCardsView extends View {
         super.onDraw(canvas);
         // Don't draw anything until all the Asynctasks are done and all the DroidCards are ready.
         if (mDroids.length > 0 && mDroidCards.size() == mDroids.length) {
+//            // Overdraw code
+//            int i;
+//            for (i = 0; i < mDroidCards.size(); i++) {
+//                // Each card is laid out a little to the right of the previous one.
+//                mCardLeft = i * mCardSpacing;
+//
+//                drawDroidCard(canvas, mDroidCards.get(i), mCardLeft, 0);
+//            }
+
+
             // Loop over all the droids, except the last one.
-            for (int i = 0; i < mDroidCards.size(); i++) {
+            int i;
+
+            for (i = 0; i < mDroidCards.size()-1; i++) {
                 // Each card is laid out a little to the right of the previous one.
                 mCardLeft = i * mCardSpacing;
+
+                // Save the canvas state
+                canvas.save();
+
+                // Restrict the drawing area to what is visible
+                canvas.clipRect(mCardLeft, 0, mCardLeft+mCardSpacing, mDroidCards.get(i).getHeight());
+
                 drawDroidCard(canvas, mDroidCards.get(i), mCardLeft, 0);
+
+                // Restore canvas to non-clipping state
+                canvas.restore();
             }
+
+            // Draw the final card without clipping
+            drawDroidCard(canvas, mDroidCards.get(i), mCardLeft + mCardSpacing, 0);
+
         }
 
         // Invalidate the whole view. Doing this calls onDraw() if the view is visible.
@@ -114,7 +140,8 @@ class DroidCardsView extends View {
 
         // Draw outer rectangle.
         paint.setAntiAlias(true);
-        paint.setColor(Color.WHITE);
+
+        paint.setColor(Color.TRANSPARENT);
         paint.setStyle(Paint.Style.FILL);
         Rect cardRect = new Rect(
                 (int)left,
