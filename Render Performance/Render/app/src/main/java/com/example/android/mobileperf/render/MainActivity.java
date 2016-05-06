@@ -19,6 +19,7 @@ package com.example.android.mobileperf.render;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -28,7 +29,7 @@ import android.widget.Button;
  * simply as a table of contents: surfaces buttons that launch the ChatumLatinum and DroidCards
  * activities.
  */
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +38,9 @@ public class MainActivity extends ActionBarActivity {
 
         addButton(ChatumLatinumActivity.class,
                 getString(R.string.title_activity_chatum_latinum), activityContainer);
+
+        addButton(DroidCardsActivity.class,
+                getString(R.string.title_activity_droid_cards), activityContainer);
     }
 
     private void addButton(final Class destination, String description, ViewGroup parent) {
