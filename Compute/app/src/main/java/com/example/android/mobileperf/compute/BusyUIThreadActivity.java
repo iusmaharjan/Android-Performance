@@ -21,6 +21,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Debug;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.Button;
@@ -31,6 +32,7 @@ public class BusyUIThreadActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_busy_uithread);
 
         Button theButtonThatLoadsAnImage = (Button) findViewById(R.id.busyui_button_load);
@@ -108,5 +110,10 @@ public class BusyUIThreadActivity extends Activity {
             ImageView imageView = (ImageView) findViewById(R.id.busyui_imageview);
             imageView.setImageBitmap(sepiaBitmap);
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 }

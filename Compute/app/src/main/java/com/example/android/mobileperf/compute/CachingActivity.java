@@ -17,6 +17,7 @@ package com.example.android.mobileperf.compute;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Debug;
 import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
@@ -29,6 +30,9 @@ public class CachingActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Debug.startMethodTracing("calc");
+
         setContentView(R.layout.activity_caching_exercise);
 
         Button theButtonThatDoesFibonacciStuff = (Button) findViewById(R.id.caching_do_fib_stuff);
@@ -38,7 +42,7 @@ public class CachingActivity extends Activity {
             @Override
             public void onClick(View v) {
                 // Compute the 40th number in the fibonacci sequence, then dump to log output.
-                Log.i(LOG_TAG, String.valueOf(computeFibonacci(40)));
+                Log.i(LOG_TAG, String.valueOf(computeFibonacciRecursive(25)));
             }
         });
 
@@ -66,15 +70,37 @@ public class CachingActivity extends Activity {
      * @param positionInFibSequence  The position in the fibonacci sequence to return.
      * @return the nth number of the fibonacci sequence.  Seriously, try to keep up.
      */
-    public int computeFibonacci(int positionInFibSequence) {
-        int prev = 0;
-        int current = 1;
-        int newValue;
-        for (int i=1; i<positionInFibSequence; i++) {
-            newValue = current + prev;
-            prev = current;
-            current = newValue;
+//    public int computeFibonacci(int positionInFibSequence) {
+//        int prev = 0;
+//        int current = 1;
+//        int newValue;
+//        for (int i=1; i<positionInFibSequence; i++) {
+//            newValue = current + prev;
+//            prev = current;
+//            current = newValue;
+//        }
+//        return current;
+//    }
+
+    /**
+     *  Why store things when you can recurse instead?  Don't let evidence, personal experience,
+     *  or rational arguments from your peers fool you.  The elegant solution is the best solution.
+     *
+     * @param positionInFibSequence  The position in the fibonacci sequence to return.
+     * @return the nth number of the fibonacci sequence.  Seriously, try to keep up.
+     */
+    public int computeFibonacciRecursive(int positionInFibSequence) {
+        if (positionInFibSequence <= 2) {
+            return 1;
+        } else {
+            return computeFibonacciRecursive(positionInFibSequence - 1)
+                    + computeFibonacciRecursive(positionInFibSequence - 2);
         }
-        return current;
+    }
+
+    @Override
+    protected void onDestroy() {
+        Debug.stopMethodTracing();
+        super.onDestroy();
     }
 }
