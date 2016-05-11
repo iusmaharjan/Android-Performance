@@ -38,7 +38,7 @@ public class MainActivity extends Activity {
         addButton(BusyUIThreadActivity.class, "Slow onClick handler", rootView);
         addButton(DataStructuresActivity.class, "Data structure selection", rootView);
         addButton(MemoryLeakActivity.class, "Memory leak selection", rootView);
-
+        addButton(MemoryChurnActivity.class, "Memory churn selection", rootView);
 
     }
 

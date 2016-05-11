@@ -36,7 +36,7 @@ public class MemoryLeakActivity extends Activity {
 
     @Override
     protected void onStop() {
-        ListenerCollector.clearListeners();
+//        ListenerCollector.clearListeners();
         super.onStop();
     }
 }
