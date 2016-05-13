@@ -65,39 +65,39 @@ public class MemoryChurnActivity extends Activity {
             }
         }
 
-//        // Now go through and dump the sorted version of each row to output!
-//        for(int i = 0; i < lotsOfInts.length; i++) {
-//            String rowAsStr = "";
-//            for (int j = 0; j < lotsOfInts[i].length; j++) {
-//                // Clearly, the only reasonable way to construct a string is one character at a
-//                // time, with lots and lots of convenient concatenation.
-//                rowAsStr += getSorted(lotsOfInts[i])[j];
-//                if(j < (lotsOfInts[i].length - 1)){
-//                    rowAsStr += ", ";
-//                }
-//            }
-//            Log.i("CachingActivityExercise", "Row " + i + ": " + rowAsStr);
-//        }
-
         // Now go through and dump the sorted version of each row to output!
-        StringBuilder builder = new StringBuilder();
-        String rowAsStr = "";
         for(int i = 0; i < lotsOfInts.length; i++) {
-            int[] sorted = getSorted(lotsOfInts[i]);
-
-            builder.delete(0,rowAsStr.length());
+            String rowAsStr = "";
             for (int j = 0; j < lotsOfInts[i].length; j++) {
                 // Clearly, the only reasonable way to construct a string is one character at a
                 // time, with lots and lots of convenient concatenation.
-                builder.append(sorted[j]);
-
+                rowAsStr += getSorted(lotsOfInts[i])[j];
                 if(j < (lotsOfInts[i].length - 1)){
-                    builder.append(", ");
+                    rowAsStr += ", ";
                 }
             }
-            rowAsStr = builder.toString();
             Log.i("CachingActivityExercise", "Row " + i + ": " + rowAsStr);
         }
+
+//        // Now go through and dump the sorted version of each row to output!
+//        StringBuilder builder = new StringBuilder();
+//        String rowAsStr = "";
+//        for(int i = 0; i < lotsOfInts.length; i++) {
+//            int[] sorted = getSorted(lotsOfInts[i]);
+//
+//            builder.delete(0,rowAsStr.length());
+//            for (int j = 0; j < lotsOfInts[i].length; j++) {
+//                // Clearly, the only reasonable way to construct a string is one character at a
+//                // time, with lots and lots of convenient concatenation.
+//                builder.append(sorted[j]);
+//
+//                if(j < (lotsOfInts[i].length - 1)){
+//                    builder.append(", ");
+//                }
+//            }
+//            rowAsStr = builder.toString();
+//            Log.i("CachingActivityExercise", "Row " + i + ": " + rowAsStr);
+//        }
     }
 
     /**

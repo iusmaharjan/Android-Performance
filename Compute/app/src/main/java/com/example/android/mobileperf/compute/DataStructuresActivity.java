@@ -24,6 +24,8 @@ import android.webkit.WebView;
 import android.widget.Button;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class DataStructuresActivity extends Activity {
@@ -39,7 +41,7 @@ public class DataStructuresActivity extends Activity {
         dumpCountriesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dumpPopularRandomNumbersByRank();
+                dumpPopularRandomNumbersByRankArray();
             }
         });
 
@@ -56,7 +58,7 @@ public class DataStructuresActivity extends Activity {
      * Using the pre-formed array of random numbers ordered by popularity, prints out an ordered
      * list of the random number + rank in the form "(RandomNumber): #(Rank)".
      */
-    public void dumpPopularRandomNumbersByRank() {
+    public void dumpPopularRandomNumbersByRankArray() {
         Trace.beginSection("Data Structures");
         // First we need a sorted list of the numbers to iterate through.
         Integer[] sortedNumbers = SampleData.coolestRandomNumbers.clone();
@@ -73,6 +75,28 @@ public class DataStructuresActivity extends Activity {
                     Log.i("Popularity Dump", currentNumber + ": #" + j);
                 }
             }
+        }
+        Trace.endSection();
+    }
+
+    /**
+     * Using the pre-formed array of random numbers ordered by popularity, prints out an ordered
+     * list of the random number + rank in the form "(RandomNumber): #(Rank)".
+     */
+    public void dumpPopularRandomNumbersByRankHashMap() {
+        Trace.beginSection("Data structures");
+        // Make a copy so that we don't accidentally shatter our data structure.
+        Map<Integer, Integer> rankedNumbers = new HashMap<>();
+        rankedNumbers.putAll(SampleDataMap.coolestRandomNumbers);
+        // Then, we need a sorted version of the numbers to iterate through.
+        Integer[] sortedNumbers = {};
+        sortedNumbers = rankedNumbers.keySet().toArray(sortedNumbers);
+        Arrays.sort(sortedNumbers);
+
+        Integer number;
+        for (int i = 0; i < sortedNumbers.length; i++) {
+            number = sortedNumbers[i];
+            Log.i("Popularity Dump", number + ": #" + rankedNumbers.get(number));
         }
         Trace.endSection();
     }
